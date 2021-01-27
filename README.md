@@ -27,3 +27,8 @@ Once your container is running you will need to check the logs and complete the 
 allowing your container to authenticate with Bitfount.
 The process is the same as when running locally (e.g. the tutorials),
 except that we can't open the login page automatically for you.
+
+## Viewing logs
+The logs are streamed to stdout and stderr by the application running inside the docker container.
+These can be viewed directly using `docker logs` (see [docker's documentation](https://docs.docker.com/engine/reference/commandline/logs/)),
+or using the tool that you normally use to view Docker container logs.
