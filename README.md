@@ -11,6 +11,7 @@ This can be found in the Github Repository, as well as inside the Docker image.
 There are two docker images, one for running a Pod (`ghcr.io/bitfount/pod:stable`),
 and another for running a modelling task (`ghcr.io/bitfount/modeller:stable`).
 
+## Providing the Config & Data
 Both of the images require a `config.yaml` file to be provided to them,
 by default they will try to load it from `/mount/config/config.yaml` inside the docker container.
 You can provide this file easily by mounting/binding a volume to the container,
@@ -23,6 +24,12 @@ If you're using a CSV data source then you'll also need to mount your data to th
 this will need to be mounted at the path specified in your config, for simplicity it's easiest
 put your config and your CSV in the same directory and then mount it to the container.
 
+## Providing storage for Authentication Tokens
+To avoid having to log in repeatedly whenever a Pod or Modeller container is restarted, you can bind a volume on your host machine to the container which will store your access tokens.
+
+The location inside the container to mount to is: `/root/.bitfount/`.
+
+## Starting the Pod
 Once your container is running you will need to check the logs and complete the login step,
 allowing your container to authenticate with Bitfount.
 The process is the same as when running locally (e.g. the tutorials),
