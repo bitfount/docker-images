@@ -18,6 +18,11 @@ You can provide this file easily by mounting/binding a volume to the container,
 how you do this may vary depending on your platform/environment (Docker/docker-compose/ECS),
 if you have any problems doing this then feel free to reach out to us.
 
+Here's how it can be done with the `docker run` command:
+```
+docker run -d -v /path/to/config/directory:/mount/config ghcr.io/bitfount/pod:stable
+```
+
 Alternative you could copy a config file into a stopped container using [docker cp](https://docs.docker.com/engine/reference/commandline/cp/).
 
 If you're using a CSV data source then you'll also need to mount your data to the container,
@@ -27,7 +32,10 @@ put your config and your CSV in the same directory and then mount it to the cont
 ## Providing storage for Authentication Tokens
 To avoid having to log in repeatedly whenever a Pod or Modeller container is restarted, you can bind a volume on your host machine to the container which will store your access tokens.
 
-The location inside the container to mount to is: `/root/.bitfount/`.
+The location inside the container to mount to is: `/root/.bitfount/`, so your `docker run` command might look like this:
+```
+docker run -d -v /path/to/config/directory:/mount/config -v /path/to/directory/for/auth/tokens:/root/.bitfount ghcr.io/bitfount/pod:stable
+```
 
 ## Starting the Pod
 Once your container is running you will need to check the logs and complete the login step,
@@ -37,5 +45,10 @@ except that we can't open the login page automatically for you.
 
 ## Viewing logs
 The logs are streamed to stdout and stderr by the application running inside the docker container.
-These can be viewed directly using `docker logs` (see [docker's documentation](https://docs.docker.com/engine/reference/commandline/logs/)),
+If you're running the container detached (recommended) then these can be viewed directly using `docker logs` (see [docker's documentation](https://docs.docker.com/engine/reference/commandline/logs/)),
 or using the tool that you normally use to view Docker container logs.
+
+If using docker logs, run `docker ps` to find the name of your `ghcr.io/bitfount/pod` container, 
+or use the long ID string produced when you ran your container,
+ then run `docker logs -f <container name>`.
+`-f` will follow the logs as they are generated, you can stop viewing them using `CTRL+C`.
