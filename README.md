@@ -8,7 +8,7 @@ This can be found in the Github Repository, as well as inside the Docker image.
 
 ## Using the Docker images
 
-Our Pod (Process Of Data) docker image is available via Github Container Registry: `ghcr.io/bitfount/pod:stable`
+Our Pod (Processor Of Data) docker image is available via Github Container Registry: `ghcr.io/bitfount/pod:stable`
 
 If you have any problems with any of the steps in this README then feel free to reach out to us.
 
