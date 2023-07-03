@@ -1,0 +1,37 @@
+version: "3"
+services:
+  pod:
+    image: ghcr.io/bitfount/pod:stable
+    volumes:
+      # You would need to define a config file on your host machine at `~/.bitfount_dev/docker/config.yaml`.
+      - "~/.bitfount_dev/docker:/mount/config"
+
+  gpu-pod:
+      image: ghcr.io/bitfount/pod:stable
+      volumes:
+        # You would need to define a config file on your host machine at `~/.bitfount_dev/docker/config.yaml`.
+        - "~/.bitfount_dev/docker:/mount/config"
+      # Below is an example giving access to an NVIDIA GPU. 
+      # As there are many different setups we recommend that you review the documentation to ensure you give access
+      # to the desired hardware https://docs.docker.com/compose/gpu-support/
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]
+
+  gpu-checker:
+      image: ghcr.io/bitfount/pod:stable
+      entrypoint: nvidia-smi
+      # Below is an example giving access to an NVIDIA GPU. 
+      # As there are many different setups we recommend that you review the documentation to ensure you give access
+      # to the desired hardware https://docs.docker.com/compose/gpu-support/
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]
